@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="actas.css">
+    <title>Gestor de Actas Digitales</title>
+</head>
+<body>
+    <!-- Mostrará el número de acta sin incrementar al cargar -->
+    <h2 id="numeroActa" style="color:white; margin-left:30px; margin-top:20px;"></h2>
+
+    <h1>Gestor de Actas Digitales</h1>
+
+    <div class="botones-superiores">
+        <div class="contenedor-boton">
+            <button id="btnAgregarProducto">Agregar Producto</button>
+        </div>
+        <div class="contenedor-boton-derecha">
+            <button id="btnCrearActa">Crear Acta</button>
+        </div>
+    </div>
+
+    <!-- Contenedor donde se agregan todos los productos -->
+    <div id="contenedorGeneral"></div>
+
+    <!-- Contenedor para la pregunta de usuario que recibe -->
+    <div id="usuarioContainer" style="display: none;">
+        <input type="text" id="usuarioRecibe" placeholder="¿Qué usuario recibe los equipos?">
+    </div>
+
+    <!-- Librerías necesarias para generar el PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Mostrar automáticamente el número de acta sin incrementar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const numeroActaElem = document.getElementById("numeroActa");
+            try {
+                const response = await fetch("http://localhost:3000/api/ver-acta");
+                const data = await response.json();
+                numeroActaElem.textContent = `ACTA N.- ${data.numeroActa}`;
+            } catch (error) {
+                console.error("Error al obtener número de acta:", error);
+                numeroActaElem.textContent = "ACTA N.- [Error]";
+            }
+        });
+    </script>
+
+    <!-- Script principal -->
+    <script src="actas.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
